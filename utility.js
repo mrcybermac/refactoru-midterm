@@ -1,3 +1,5 @@
+
+
 if (!String.prototype.supplant) {
     String.prototype.supplant = function (o) {
         return this.replace(
