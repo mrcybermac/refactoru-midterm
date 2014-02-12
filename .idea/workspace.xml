@@ -2,8 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="489c6521-3339-4ce0-ad70-155779915624" name="Default" comment="">
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/doge.png" afterPath="$PROJECT_DIR$/images/dogecoin.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/moon.png" afterPath="$PROJECT_DIR$/images/mooncoin.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/ppc.png" afterPath="$PROJECT_DIR$/images/peercoin.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.css" afterPath="$PROJECT_DIR$/main.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.js" afterPath="$PROJECT_DIR$/main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test.html" afterPath="$PROJECT_DIR$/test.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="refactoru-midterm.iws" />
@@ -30,7 +35,7 @@
       <file leaf-file-name="index.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="51" column="9" selection-start="1623" selection-end="1623" vertical-scroll-proportion="0.31017965" vertical-offset="557" max-vertical-offset="1392">
+            <state line="52" column="0" selection-start="1912" selection-end="1912" vertical-scroll-proportion="0.9964072" vertical-offset="0" max-vertical-offset="1584">
               <folding />
             </state>
           </provider>
@@ -39,7 +44,7 @@
       <file leaf-file-name="main.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="53" selection-start="445" selection-end="445" vertical-scroll-proportion="0.0" vertical-offset="16" max-vertical-offset="1456">
+            <state line="64" column="20" selection-start="2596" selection-end="2596" vertical-scroll-proportion="0.0" vertical-offset="544" max-vertical-offset="1520">
               <folding />
             </state>
           </provider>
@@ -48,7 +53,7 @@
       <file leaf-file-name="test.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/test.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="0" selection-start="589" selection-end="589" vertical-scroll-proportion="0.0" vertical-offset="240" max-vertical-offset="560">
+            <state line="40" column="29" selection-start="1996" selection-end="1996" vertical-scroll-proportion="72.84" vertical-offset="2461" max-vertical-offset="3296">
               <folding />
             </state>
           </provider>
@@ -57,7 +62,7 @@
       <file leaf-file-name="main.css" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="0" selection-start="343" selection-end="343" vertical-scroll-proportion="0.0" vertical-offset="256" max-vertical-offset="352">
+            <state line="25" column="1" selection-start="463" selection-end="463" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="496">
               <folding />
             </state>
           </provider>
@@ -76,16 +81,19 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/main.css" />
         <option value="$PROJECT_DIR$/utility.js" />
         <option value="$PROJECT_DIR$/test.html" />
+        <option value="$PROJECT_DIR$/bootstrap3-javascript.html" />
+        <option value="$PROJECT_DIR$/bootstrap2-components.html" />
+        <option value="$PROJECT_DIR$/bootstrap1-base-css.html" />
+        <option value="$PROJECT_DIR$/main.css" />
         <option value="$PROJECT_DIR$/main.js" />
         <option value="$PROJECT_DIR$/index.html" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="89" />
+    <option name="x" value="237" />
     <option name="y" value="22" />
     <option name="width" value="1339" />
     <option name="height" value="970" />
@@ -249,7 +257,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="89" y="22" width="1339" height="970" extended-state="0" />
+    <frame x="237" y="22" width="1339" height="970" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -378,30 +386,35 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.css">
+    <entry file="file://$PROJECT_DIR$/test.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="0" selection-start="343" selection-end="343" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="352">
+        <state line="40" column="29" selection-start="1996" selection-end="1996" vertical-scroll-proportion="72.84" vertical-offset="2461" max-vertical-offset="3296">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test.html">
+    <entry file="file://$PROJECT_DIR$/images/dogecoin.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="0" selection-start="589" selection-end="589" vertical-scroll-proportion="0.0" vertical-offset="240" max-vertical-offset="560">
+        <state line="25" column="1" selection-start="463" selection-end="463" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="496">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="53" selection-start="445" selection-end="445" vertical-scroll-proportion="0.0" vertical-offset="16" max-vertical-offset="1456">
+        <state line="64" column="20" selection-start="2596" selection-end="2596" vertical-scroll-proportion="0.0" vertical-offset="647" max-vertical-offset="1520">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="51" column="9" selection-start="1623" selection-end="1623" vertical-scroll-proportion="0.31017965" vertical-offset="557" max-vertical-offset="1392">
+        <state line="52" column="0" selection-start="1912" selection-end="1912" vertical-scroll-proportion="0.9964072" vertical-offset="0" max-vertical-offset="1584">
           <folding />
         </state>
       </provider>

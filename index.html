@@ -11,49 +11,61 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
     <link rel="stylesheet" type="text/css" href="main.css">
 </head>
+
+<!--//////////////////////////  BODY  /////////////////////////-->
+
 <body>
 
 <div class="container">
     <div class="row">
-        <div class="col-md-10-offset-1">
+        <div class="col-md-10 col-md-offset-1">
             <header>
-                <nav>
+                <div class="jumbotron">
+                <h1>
+                    WebApp
+                </h1>
+                <nav class="navbar navbar-default" role="navigation">
                     my nav
                 </nav>
+                </div>
             </header>
         </div>
     </div>
     <div class="row">
-        <div id="portfolio-container" class="col-md-8-offset-2">
-
-
+        <div id="portfolio-container" class="col-md-8 col-md-offset-2">
         </div>
     </div>
 </div>
 
 
 <!--//////////////////////////  TEMPLATES /////////////////////////-->
-
 <script id="crypto-template" type="text/x-handlebars-template">
 
-    <div>
-        <img src="images/{{imageName}}"></img>
-        <h3>{{title}}</h3>
-        <h4>Price: {{getCurrentPrice}}</h4>
-        <span class="sparkline"></span>
-        <div id="chart_div"></div>
+    <div class="crypto row ">
+        <div class="col-md-12 col-md-offset-0">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <img src="images/{{imageName}}"></img>
+                    <h3>{{title}}</h3>
+                    <h4>Price: {{getCurrentPrice}}</h4>
+                    <span class="sparkline"></span>
+                    <div id="chart_div"></div>
 
-        <button type="button" class="btn btn-default btn-xs">
-            Chart
-            <span class="glyphicon glyphicon-chevron-down"></span>
-        </button>
+                    <button type="button" class="btn btn-default btn-xs">
+                        Chart
+                        <!--<span class="glyphicon glyphicon-chevron-down"></span>-->
+                        <span class="caret"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
 </script>
-
+<!--//////////////////////////-->
 <script id="portfolio-template" type="text/x-handlebars-template">
 
-    <div>
+    <div class="portfolio">
         <ul class="list-unstyled">
             {{#each cryptos}}
             <li>
@@ -65,7 +77,7 @@
 
 </script>
 
-
+<!--//////////////////////////  SCRIPT IMPORTS  /////////////////////////-->
 
 <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
