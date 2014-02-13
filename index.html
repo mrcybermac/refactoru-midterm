@@ -69,9 +69,7 @@
                 <li><a href="../navbar-fixed-top/">Fixed top</a></li>
             </ul>
         </div>
-        <!--/.nav-collapse -->
     </div>
-    <!--/.container-fluid -->
 </div>
 
 
@@ -95,6 +93,16 @@
 
 
 <!--//////////////////////////  TEMPLATES /////////////////////////-->
+
+
+<script id="settings-template" type="text/x-handlebars-template">
+
+    <p>hello worlds</p>
+
+
+</script>
+
+
 <script id="crypto-template" type="text/x-handlebars-template">
 
     {{!-- as a panel
@@ -154,15 +162,15 @@
 <script id="portfolio-template" type="text/x-handlebars-template">
 
     {{!-- as a list
-    <div class="portfolio">
-        <ul class="list-unstyled">
-            {{#each cryptos}}
-            <li>
-                {{{this.createTextElement}}}
-            </li>
-            {{/each}}
-        </ul>
-    </div>
+    <!--<div class="portfolio">-->
+        <!--<ul class="list-unstyled">-->
+            <!--{{#each cryptos}}-->
+            <!--<li>-->
+                <!--{{{this.createTextElement}}}-->
+            <!--</li>-->
+            <!--{{/each}}-->
+        <!--</ul>-->
+    <!--</div>-->
     --}}
 
 
@@ -187,7 +195,7 @@
             {{#each cryptos}}
             <tr>
                 <td>
-                    {{{this.createTextElement}}}
+                    {{{createTextElement "#crypto-template" this}}}
                 </td>
             </tr>
             {{/each}}

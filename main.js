@@ -20,35 +20,35 @@ $(document).ready(function () {
         return str.toLowerCase();
     });
 
+    Handlebars.registerHelper('createTextElement', function (str, obj) {
+        var source = $(str).html();
+        var template = Handlebars.compile(source);
+        return $(template(obj))[0].outerHTML;
+    });
+
 //////////////////////////////  OBJECTS  ///////////////////////////////////
 
-    var HandleBarsCreatable = function (scriptTagID) {
+    var HandlebarsHTMLTrunkCreatable = function (scriptTagID) {
         this.scriptTagID = scriptTagID;
     };
-    HandleBarsCreatable.prototype.createJqueryElement = function () {
+    HandlebarsHTMLTrunkCreatable.prototype.createJqueryElement = function () {
         var source = $(this.scriptTagID).html();  // make this object property?
         var template = Handlebars.compile(source);
         return $(template(this));
     };
-    HandleBarsCreatable.prototype.createDOMElement = function () {
+    HandlebarsHTMLTrunkCreatable.prototype.createDOMElement = function () {
         return this.createJqueryElement()[0];
     };
-    HandleBarsCreatable.prototype.createTextElement = function () {
+    HandlebarsHTMLTrunkCreatable.prototype.createTextElement = function () {
         return this.createJqueryElement()[0].outerHTML;
     };
 
 ////////////////
 
-    var Crypto = function (title, imageName, scriptTagID) {
-        HandleBarsCreatable.call(this, scriptTagID);
+    var Crypto = function (title, imageName) {
         this.title = title;
         this.imageName = imageName;
-//        this.getPriceData = function () {
-//            return [1, 4, 4, 7, 5, 9, 10, 8, 4, 5, 7, 5, 9, 10, 7, 4, 6, 7, 5, 9, 10, 6, 4, 4, 7, 5, 9, 15];
-//        }
-
     };
-    Crypto.prototype = new HandleBarsCreatable();
     Crypto.prototype.getPriceData = function () {
         return priceData[this.title.toLowerCase()];
     };
@@ -73,39 +73,41 @@ $(document).ready(function () {
 
 ////////////////
 
-    var UserData = function (cryptosSelected) {
-        this.cryptosSelected = cryptosSelected;  // array of cryptos selected
+    var UserSettings = function (scriptTagID) {
+        HandlebarsHTMLTrunkCreatable.call(this, scriptTagID);
+        this.settings = {};
+        for (var i = 0; i < cryptoArray.length; i++) {
+            this.settings[cryptoArray[i].title] = 0;
+        }
     };
-    UserData.prototype.method = function () {
-        return 700;
-    };
+    UserSettings.prototype = new HandlebarsHTMLTrunkCreatable();
 
 ////////////////
 
     var Portfolio = function (cryptos, scriptTagID) {
-        HandleBarsCreatable.call(this, scriptTagID);
+        HandlebarsHTMLTrunkCreatable.call(this, scriptTagID);
         this.cryptos = cryptos; //array of Crypto objects
     }
-    Portfolio.prototype = new HandleBarsCreatable();
+    Portfolio.prototype = new HandlebarsHTMLTrunkCreatable();
 
 
 //////////////////////////////  EVENT HANDLERS  ///////////////////////////////////
 
 
 //////////////////////////////  INSTANTIATE OBJECTS  ///////////////////////////////////
-    var bitcoin = new Crypto("Bitcoin", "bitcoin.png", "#crypto-template");
-    var digitalcoin = new Crypto("Digitalcoin", "digitalcoin.png", "#crypto-template");
-    var dogecoin = new Crypto("Dogecoin", "dogecoin.png", "#crypto-template");
-    var feathercoin = new Crypto("Feathercoin", "feathercoin.png", "#crypto-template");
-    var litecoin = new Crypto("Litecoin", "litecoin.jpg", "#crypto-template");
-    var megacoin = new Crypto("Megacoin", "megacoin.png", "#crypto-template");
-    var mooncoin = new Crypto("Mooncoin", "mooncoin.png", "#crypto-template");
-    var namecoin = new Crypto("Namecoin", "namecoin.png", "#crypto-template");
-    var novacoin = new Crypto("Novacoin", "novacoin.png", "#crypto-template");
-    var nxt = new Crypto("Nxt", "nxt.jpg", "#crypto-template");
-    var peercoin = new Crypto("Peercoin", "peercoin.png", "#crypto-template");
+    var bitcoin = new Crypto("Bitcoin", "bitcoin.png");
+    var digitalcoin = new Crypto("Digitalcoin", "digitalcoin.png");
+    var dogecoin = new Crypto("Dogecoin", "dogecoin.png");
+    var feathercoin = new Crypto("Feathercoin", "feathercoin.png");
+    var litecoin = new Crypto("Litecoin", "litecoin.jpg");
+    var megacoin = new Crypto("Megacoin", "megacoin.png");
+    var mooncoin = new Crypto("Mooncoin", "mooncoin.png");
+    var namecoin = new Crypto("Namecoin", "namecoin.png");
+    var novacoin = new Crypto("Novacoin", "novacoin.png");
+    var nxt = new Crypto("Nxt", "nxt.jpg");
+    var peercoin = new Crypto("Peercoin", "peercoin.png");
 
-    var cryptoArray = [];
+    var cryptoArray = [];  //global array of all defined cryptos
 
     cryptoArray.push(
         bitcoin,
@@ -122,12 +124,22 @@ $(document).ready(function () {
 
     var portfolio = new Portfolio(cryptoArray, "#portfolio-template");
 
+    var userSettings = new UserSettings("#settings-template");
+    //console.log(userSettings);
+
 
 //////////////////////////////  MAIN  ///////////////////////////////////
 
-
+    $("#settings-modal-body").append(userSettings.createJqueryElement());
     $("#portfolio-container").append(portfolio.createJqueryElement());
 
 
 //////////////////////////////  END MAIN  ///////////////////////////////////
 });
+
+
+//TODO
+//settings rendered and saved
+//total value calculated and for each
+//html storage of settings... set userSettings=html storage object if exist
+//sort by alpha, price, portfolio value
