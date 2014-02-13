@@ -21,11 +21,10 @@ $(document).ready(function () {
     });
 
     Handlebars.registerHelper('apply', function (fnc, obj) {
-        console.log(arguments);
-        console.log(Array.prototype.slice.call(Array.prototype.slice.call(arguments)));
-        //console.log(Array.prototype.shift.call(arguments));
-        //console.log(Array.prototype.slice.call(arguments));
-        return fnc.apply(obj, Array.prototype.slice.call(Array.prototype.slice.call(arguments)));
+        var argArray = Array.prototype.slice.call(arguments);
+        argArray.shift();
+        argArray.shift();
+        return fnc.apply(obj, argArray);
     });
 
     Handlebars.registerHelper('createTextElement', function (str, obj) {
