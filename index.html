@@ -15,6 +15,23 @@
 <!--//////////////////////////  BODY  /////////////////////////-->
 
 <body>
+<!-- Modal -->
+<div class="modal fade" id="settings-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body" id="settings-modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Static navbar -->
 <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -30,7 +47,7 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Link</a></li>
+                <li class="active"><a href="#" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#settings-modal">Settings</a></li>
                 <li><a href="#">Link</a></li>
                 <li><a href="#">Link</a></li>
                 <li class="dropdown">
@@ -81,32 +98,32 @@
 <script id="crypto-template" type="text/x-handlebars-template">
 
     {{!-- as a panel
-    <div class="crypto row ">
-        <div class="col-md-12 col-md-offset-0">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <img src="images/{{imageName}}"></img>
+    <!--<div class="crypto row ">-->
+        <!--<div class="col-md-12 col-md-offset-0">-->
+            <!--<div class="panel panel-default">-->
+                <!--<div class="panel-body">-->
+                    <!--<img src="images/{{imageName}}"></img>-->
 
-                    <h3>{{title}}</h3>
-                    <h4>Price: {{getCurrentPrice}}</h4>
-                    <span class="sparkline"></span>
+                    <!--<h3>{{title}}</h3>-->
+                    <!--<h4>Price: {{getCurrentPrice}}</h4>-->
+                    <!--<span class="sparkline"></span>-->
 
-                    <div id="chart_div"></div>
+                    <!--<div id="chart_div"></div>-->
 
-                    <button type="button" class="btn btn-default btn-xs">
-                        Chart
-                        {{!<span class="glyphicon glyphicon-chevron-down"></span>}}
-                        <span class="caret"></span>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+                    <!--<button type="button" class="btn btn-default btn-xs">-->
+                        <!--Chart-->
+                        <!--{{!<span class="glyphicon glyphicon-chevron-down"></span>}}-->
+                        <!--<span class="caret"></span>-->
+                    <!--</button>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
     --}}
 
     {{!-- with regular flow --}}
 
-    <div class="crypto row ">
+    <div class="crypto row " data-id="{{toLowerCase title}}">
         <div class="col-md-4 col-md-offset-0">
             <img src="images/{{imageName}}"></img>
 

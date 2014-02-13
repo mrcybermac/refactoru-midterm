@@ -1,6 +1,6 @@
 $(document).ready(function () {
 //////////////////////////////  DATA  ///////////////////////////////////
-    var data = {
+    var priceData = {
         bitcoin: [700, 737, 738, 767, 783, 712, 711, 700, 738, 698, 678, 689, 675, 656, 660, 680, 685, 675, 665, 657, 675, 660, 675, 670, 660, 665, 655, 650],
         digitalcoin: [1, 4, 4, 7, 5, 9, 10, 8, 4, 5, 7, 5, 9, 10, 7, 4, 6, 7, 5, 9, 10, 6, 4, 4, 7, 5, 9, 15],
         dogecoin: [1, 4, 4, 7, 5, 9, 10, 8, 4, 5, 7, 5, 9, 10, 7, 4, 6, 7, 5, 9, 10, 6, 4, 4, 7, 5, 9, 15],
@@ -50,7 +50,7 @@ $(document).ready(function () {
     };
     Crypto.prototype = new HandleBarsCreatable();
     Crypto.prototype.getPriceData = function () {
-        return data[this.title.toLowerCase()];
+        return priceData[this.title.toLowerCase()];
     };
     Crypto.prototype.getCurrentPrice = function () {
         return 700;
@@ -58,7 +58,7 @@ $(document).ready(function () {
     Crypto.prototype.createSparkline = function () {
         //see http://omnipotent.net/jquery.sparkline/#s-faq
         //sparkline requires a live DOM element to append to.  Unfortunately,
-        //this breaks the HandleBarsCreateable framework because the text DOM
+        //this breaks the HandleBarsCreateable mini-framework because the text DOM
         //element cannot be sent into the Handlebars template.
         //workaround is to 1.) create unique id names based on Crypt titles and
         //2.) pass the sparkline call into setTimeout(0) so that it will be called
@@ -73,13 +73,12 @@ $(document).ready(function () {
 
 ////////////////
 
-//    var Sparkline = function (title, imageName, scriptTagID) {
-//        HandleBarsCreatable.call(this, scriptTagID);
-//    };
-//    Sparkline.prototype = new HandleBarsCreatable();
-//    Sparkline.prototype.getCurrentPrice = function () {
-//        return 700;
-//    };
+    var UserData = function (cryptosSelected) {
+        this.cryptosSelected = cryptosSelected;  // array of cryptos selected
+    };
+    UserData.prototype.method = function () {
+        return 700;
+    };
 
 ////////////////
 
@@ -105,7 +104,10 @@ $(document).ready(function () {
     var novacoin = new Crypto("Novacoin", "novacoin.png", "#crypto-template");
     var nxt = new Crypto("Nxt", "nxt.jpg", "#crypto-template");
     var peercoin = new Crypto("Peercoin", "peercoin.png", "#crypto-template");
-    var portfolio = new Portfolio([
+
+    var cryptoArray = [];
+
+    cryptoArray.push(
         bitcoin,
         digitalcoin,
         dogecoin,
@@ -116,8 +118,9 @@ $(document).ready(function () {
         namecoin,
         novacoin,
         nxt,
-        peercoin
-    ], "#portfolio-template");
+        peercoin);
+
+    var portfolio = new Portfolio(cryptoArray, "#portfolio-template");
 
 
 //////////////////////////////  MAIN  ///////////////////////////////////

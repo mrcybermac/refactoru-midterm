@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="489c6521-3339-4ce0-ad70-155779915624" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.css" afterPath="$PROJECT_DIR$/main.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.js" afterPath="$PROJECT_DIR$/main.js" />
     </list>
     <ignored path="refactoru-midterm.iws" />
@@ -30,7 +29,7 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="114" column="46" selection-start="4359" selection-end="4359" vertical-scroll-proportion="-72.96" vertical-offset="0" max-vertical-offset="3232">
+            <state line="127" column="50" selection-start="5288" selection-end="5288" vertical-scroll-proportion="-13.44" vertical-offset="1696" max-vertical-offset="3504">
               <folding />
             </state>
           </provider>
@@ -39,7 +38,7 @@
       <file leaf-file-name="main.js" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="64" column="37" selection-start="3377" selection-end="3377" vertical-scroll-proportion="1.2278178" vertical-offset="0" max-vertical-offset="2160">
+            <state line="55" column="19" selection-start="2847" selection-end="2847" vertical-scroll-proportion="1.0551559" vertical-offset="0" max-vertical-offset="2208">
               <folding />
             </state>
           </provider>
@@ -82,8 +81,8 @@
         <option value="$PROJECT_DIR$/bootstrap2-components.html" />
         <option value="$PROJECT_DIR$/bootstrap1-base-css.html" />
         <option value="$PROJECT_DIR$/main.css" />
-        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/main.js" />
+        <option value="$PROJECT_DIR$/index.html" />
       </list>
     </option>
   </component>
@@ -402,14 +401,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="114" column="46" selection-start="4359" selection-end="4359" vertical-scroll-proportion="-72.96" vertical-offset="0" max-vertical-offset="3232">
+        <state line="127" column="50" selection-start="5288" selection-end="5288" vertical-scroll-proportion="-13.44" vertical-offset="1696" max-vertical-offset="3504">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="64" column="37" selection-start="3377" selection-end="3377" vertical-scroll-proportion="1.2278178" vertical-offset="0" max-vertical-offset="2160">
+        <state line="55" column="19" selection-start="2847" selection-end="2847" vertical-scroll-proportion="1.0551559" vertical-offset="0" max-vertical-offset="2208">
           <folding />
         </state>
       </provider>
