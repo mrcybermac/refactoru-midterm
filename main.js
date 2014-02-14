@@ -89,6 +89,7 @@ $(document).ready(function () {
 
 ////////////////
 
+
     var UserPortfolio = function (cryptos, scriptTagID) {
         HandlebarsCreatable.call(this, scriptTagID);
         this.cryptos = cryptos; //object of Crypto objects
