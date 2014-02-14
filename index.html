@@ -16,7 +16,8 @@
 
 <body>
 <!-- Modal -->
-<div class="modal fade" id="settings-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="settings-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -27,7 +28,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="submit btn btn-primary">Save changes</button>
             </div>
         </div>
     </div>
@@ -47,7 +48,8 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="#" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#settings-modal">Settings</a></li>
+                <li class="active"><a href="#" class="btn btn-primary btn-lg" data-toggle="modal"
+                                      data-target="#settings-modal">Settings</a></li>
                 <li><a href="#">Link</a></li>
                 <li><a href="#">Link</a></li>
                 <li class="dropdown">
@@ -93,8 +95,6 @@
 
 
 <!--//////////////////////////  TEMPLATES /////////////////////////-->
-
-
 <script id="settings-template" type="text/x-handlebars-template">
 
     <div class="settings">
@@ -114,11 +114,13 @@
 
             </th>
 
-            {{#each settings}}
+            {{#each cryptos}}
             <tr>
                 <td>
-                    {{!--<!--{{{createTextElement "#crypto-settings-template" this}}}-->--}}
-                    {{{apply this.cryptoObj.createTextElement this.cryptoObj "#crypto-settings-template"}}}
+                    {{!--<!--{{{createTextElement "#settings-crypto-template" this}}}-->--}}
+                    {{!--<!--{{{apply this.cryptoObj.createTextElement this.cryptoObj "#settings-crypto-template"}}}-->
+                    --}}
+                    {{{apply createTextElement this "#settings-crypto-template"}}}
                 </td>
             </tr>
             {{/each}}
@@ -128,134 +130,35 @@
 
 
 </script>
+<!--//////////////////////////-->
+<script id="settings-crypto-template" type="text/x-handlebars-template">
 
-<script id="crypto-settings-template" type="text/x-handlebars-template">
+    <form role="form">
+        <div class="crypto row " data-id="{{toLowerCase title}}">
+            <div class="col-md-4 col-md-offset-0">
+                {{#if inPortfolio}}
+                <input type="checkbox" checked> Include
+                {{else}}
+                <input type="checkbox"> Include
+                {{/if}}
 
-    {{!--
-    <!--<div class="crypto row " data-id="{{toLowerCase cryptoObj.title}}">-->
-        <!--<div class="col-md-4 col-md-offset-0">-->
-            <!--<img src="images/{{cryptoObj.imageName}}"></img>-->
+                <img src="images/{{imageName}}"></img>
 
-            <!--<span><strong>{{cryptoObj.title}}</strong></span>-->
-        <!--</div>-->
-        <!--<div class="col-md-6 col-md-offset-0">-->
-            <!--<span><strong>Price: </strong> ${{apply cryptoObj.getCurrentPrice this.cryptoObj}}</span>-->
-            <!--<span class="{{toLowerCase cryptoObj.title}}-sparkline">{{{apply cryptoObj.createSparkline this.cryptoObj}}}</span>-->
-
-            <!--<p>Quantity: </p>-->
-
-        <!--</div>-->
+                <span><strong>{{title}}</strong></span>
+            </div>
+            <div class="col-md-6 col-md-offset-0">
 
 
-        <!--<div class="col-md-2 col-md-offset-0">-->
+                <label>Quantity: <input type="text" value="{{quantity}}"></input></label>
 
-            <!--<button type="button" class="btn btn-default btn-xs">-->
-                <!--Chart-->
-                <!--{{!<span class="glyphicon glyphicon-chevron-down"></span>}}-->
-                <!--<span class="caret"></span>-->
-            <!--</button>-->
-        <!--</div>-->
-    <!--</div>-->
-    --}}
-
-    <div class="crypto row " data-id="{{toLowerCase title}}">
-        <div class="col-md-4 col-md-offset-0">
-            <img src="images/{{imageName}}"></img>
-
-            <span><strong>{{title}}</strong></span>
-        </div>
-        <div class="col-md-6 col-md-offset-0">
-            <span><strong>Price: </strong> ${{getCurrentPrice}}</span>
-            <span class="{{toLowerCase title}}-sparkline">{{{createSparkline}}}</span>
-
-            <p>Quantity: </p>
+            </div>
 
         </div>
-
-
-        <div class="col-md-2 col-md-offset-0">
-
-            <button type="button" class="btn btn-default btn-xs">
-                Chart
-                {{!<span class="glyphicon glyphicon-chevron-down"></span>}}
-                <span class="caret"></span>
-            </button>
-        </div>
-    </div>
-
-</script>
-
-
-<script id="crypto-template" type="text/x-handlebars-template">
-
-    {{!-- as a panel
-    <!--<div class="crypto row ">-->
-        <!--<div class="col-md-12 col-md-offset-0">-->
-            <!--<div class="panel panel-default">-->
-                <!--<div class="panel-body">-->
-                    <!--<img src="images/{{imageName}}"></img>-->
-
-                    <!--<h3>{{title}}</h3>-->
-                    <!--<h4>Price: {{getCurrentPrice}}</h4>-->
-                    <!--<span class="sparkline"></span>-->
-
-                    <!--<div id="chart_div"></div>-->
-
-                    <!--<button type="button" class="btn btn-default btn-xs">-->
-                        <!--Chart-->
-                        <!--{{!<span class="glyphicon glyphicon-chevron-down"></span>}}-->
-                        <!--<span class="caret"></span>-->
-                    <!--</button>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-    --}}
-
-    {{!-- with regular flow --}}
-
-    <div class="crypto row " data-id="{{toLowerCase title}}">
-        <div class="col-md-4 col-md-offset-0">
-            <img src="images/{{imageName}}"></img>
-
-            <span><strong>{{title}}</strong></span>
-        </div>
-        <div class="col-md-6 col-md-offset-0">
-            <span><strong>Price: </strong> ${{getCurrentPrice}}</span>
-            <span class="{{toLowerCase title}}-sparkline">{{{createSparkline}}}</span>
-
-            <p>Quantity: </p>
-
-        </div>
-
-
-        <div class="col-md-2 col-md-offset-0">
-
-            <button type="button" class="btn btn-default btn-xs">
-                Chart
-                {{!<span class="glyphicon glyphicon-chevron-down"></span>}}
-                <span class="caret"></span>
-            </button>
-        </div>
-    </div>
-
+    </form>
 
 </script>
 <!--//////////////////////////-->
 <script id="portfolio-template" type="text/x-handlebars-template">
-
-    {{!-- as a list
-    <!--<div class="portfolio">-->
-        <!--<ul class="list-unstyled">-->
-            <!--{{#each cryptos}}-->
-            <!--<li>-->
-                <!--{{{this.createTextElement}}}-->
-            <!--</li>-->
-            <!--{{/each}}-->
-        <!--</ul>-->
-    <!--</div>-->
-    --}}
-
 
     {{!as a table}}
     <div class="portfolio">
@@ -276,19 +179,52 @@
             </th>
 
             {{#each cryptos}}
+            {{#if inPortfolio}}
             <tr>
                 <td>
-                    {{!--<!--{{{createTextElement "#crypto-template" this}}}-->--}}
-                    {{!--<!--{{{this.createTextElement "#crypto-template"}}} this doesn't work-->--}}
-                    {{{apply this.createTextElement this "#crypto-template"}}}
+
+                    {{{apply this.createTextElement this "#portfolio-crypto-template"}}}
+
                 </td>
             </tr>
+            {{/if}}
             {{/each}}
 
         </table>
     </div>
 
 </script>
+<!--//////////////////////////-->
+<script id="portfolio-crypto-template" type="text/x-handlebars-template">
+
+    {{!-- with regular flow --}}
+
+    <div class="crypto row " data-id="{{toLowerCase title}}">
+        <div class="col-md-4 col-md-offset-0">
+            <img src="images/{{imageName}}"></img>
+
+            <span><strong>{{title}}</strong></span>
+        </div>
+        <div class="col-md-6 col-md-offset-0">
+            <span><strong>Price: </strong> ${{getCurrentPrice}}</span>
+            <span class="{{toLowerCase title}}-sparkline">{{{createSparkline}}}</span>
+
+            <p>Quantity: {{quantity}}</p>
+
+        </div>
+
+
+        <div class="col-md-2 col-md-offset-0">
+
+            <button type="button" class="btn btn-default btn-xs">
+                Chart
+                {{!<span class="glyphicon glyphicon-chevron-down"></span>}}
+                <span class="caret"></span>
+            </button>
+        </div>
+    </div>
+</script>
+
 
 <!--//////////////////////////  SCRIPT IMPORTS  /////////////////////////-->
 

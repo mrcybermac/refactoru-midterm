@@ -24,6 +24,7 @@ $(document).ready(function () {
         var argArray = Array.prototype.slice.call(arguments);
         argArray.shift();
         argArray.shift();
+        //console.log(fnc, obj, argArray);
         return fnc.apply(obj, argArray);
     });
 
@@ -35,31 +36,35 @@ $(document).ready(function () {
 
 //////////////////////////////  OBJECTS  ///////////////////////////////////
 
-    var HandlebarsHTMLTrunkCreatable = function (scriptTagID) {
+    var HandlebarsCreatable = function (scriptTagID) {
+        if (scriptTagID){
         this.scriptTagID = scriptTagID;
+        }
     };
-    HandlebarsHTMLTrunkCreatable.prototype.createJqueryElement = function (scriptTagID) {
+    HandlebarsCreatable.prototype.createJqueryElement = function (scriptTagID) {
         //console.log("hello",scriptTagID,arguments);
         var source = $(scriptTagID?scriptTagID:this.scriptTagID).html();  // make this object property?
         var template = Handlebars.compile(source);
         return $(template(this));
     };
-    HandlebarsHTMLTrunkCreatable.prototype.createDOMElement = function (scriptTagID) {
+    HandlebarsCreatable.prototype.createDOMElement = function (scriptTagID) {
         return this.createJqueryElement(scriptTagID)[0];
     };
-    HandlebarsHTMLTrunkCreatable.prototype.createTextElement = function (scriptTagID) {
+    HandlebarsCreatable.prototype.createTextElement = function (scriptTagID) {
         //console.log("hello",scriptTagID,arguments);
         return this.createJqueryElement(scriptTagID)[0].outerHTML;
     };
 
 ////////////////
 
-    var Crypto = function (title, imageName) {
-        HandlebarsHTMLTrunkCreatable.call(this);
+    var Crypto = function (title, imageName, quantity, inPortfolio) {
+        HandlebarsCreatable.call(this);
         this.title = title;
         this.imageName = imageName;
+        this.quantity = quantity;
+        this.inPortfolio = inPortfolio;
     };
-    Crypto.prototype = new HandlebarsHTMLTrunkCreatable();
+    Crypto.prototype = new HandlebarsCreatable();
     Crypto.prototype.getPriceData = function () {
         return priceData[this.title.toLowerCase()];
     };
@@ -84,110 +89,101 @@ $(document).ready(function () {
 
 ////////////////
 
-    var UserSettings = function (scriptTagID) {
-        HandlebarsHTMLTrunkCreatable.call(this, scriptTagID);
-        this.settings = {};
-        for (var key in cryptoObject){
-            this.settings[key] = {
-                cryptoObj: cryptoObject[key],
-                quantity: 0
-            }
-        }
+    var UserPortfolio = function (cryptos, scriptTagID) {
+        HandlebarsCreatable.call(this, scriptTagID);
+        this.cryptos = cryptos; //object of Crypto objects
     };
-    UserSettings.prototype = new HandlebarsHTMLTrunkCreatable();
-    UserSettings.prototype.addCrypto = function (crypto) {
-        if (!this.settings.hasOwnProperty(crypto.toLowerCase())){
-            this.settings[crypto.toLowerCase()] = {
-                cryptoObj: cryptoObject[crypto.toLowerCase()],
-                quantity: 0
-            }
-        }
+    UserPortfolio.prototype = new HandlebarsCreatable();
+    UserPortfolio.prototype.addCrypto = function (crypto) {
+            this.cryptos[crypto.toLowerCase()].inPortfolio = true;
     };
-    UserSettings.prototype.removeCrypto = function (crypto) {
-        if (this.settings.hasOwnProperty(crypto.toLowerCase())){
-            delete this.settings[crypto.toLowerCase()];
-        }
+    UserPortfolio.prototype.removeCrypto = function (crypto) {
+            this.cryptos[crypto.toLowerCase()].inPortfolio = false;
     };
-    UserSettings.prototype.updateQuantity = function (crypto, quantity) {
-
+    UserPortfolio.prototype.updateQuantity = function (crypto, quantity) {
+        this.cryptos[crypto.toLowerCase()].quantity = quantity;
     };
 
 ////////////////
 
-    var Portfolio = function (cryptos, scriptTagID) {
-        HandlebarsHTMLTrunkCreatable.call(this, scriptTagID);
-        this.cryptos = cryptos; //object of Crypto objects
+    var Settings = function () {
+        HandlebarsCreatable.call(this);
     }
-    Portfolio.prototype = new HandlebarsHTMLTrunkCreatable();
+    Settings.prototype = new HandlebarsCreatable();
 
 
 //////////////////////////////  EVENT HANDLERS  ///////////////////////////////////
 
 
+$("#settings-modal").find(".submit").on("click", function() {
+
+    $("#settings-modal").find("input:checkbox").each(function(){
+
+        for (var crypto in userPortfolio.cryptos) {
+            if ($(this).is(":checked")){
+              userPortfolio.cryptos[$(this).closest(".crypto").attr("data-id")].inPortfolio = true;
+            } else {
+              userPortfolio.cryptos[$(this).closest(".crypto").attr("data-id")].inPortfolio = false;
+            }
+        }
+    });
+
+    $("#settings-modal").find("input:text").each(function(){
+        for (var crypto in userPortfolio.cryptos) {
+                userPortfolio.cryptos[$(this).closest(".crypto").attr("data-id")].quantity = $(this).val();
+        }
+    });
+
+    //reload modal
+    renderPage();
+});
+
+
+
 //////////////////////////////  INSTANTIATE OBJECTS  ///////////////////////////////////
-//    var bitcoin = new Crypto("Bitcoin", "bitcoin.png");
-//    var digitalcoin = new Crypto("Digitalcoin", "digitalcoin.png");
-//    var dogecoin = new Crypto("Dogecoin", "dogecoin.png");
-//    var feathercoin = new Crypto("Feathercoin", "feathercoin.png");
-//    var litecoin = new Crypto("Litecoin", "litecoin.jpg");
-//    var megacoin = new Crypto("Megacoin", "megacoin.png");
-//    var mooncoin = new Crypto("Mooncoin", "mooncoin.png");
-//    var namecoin = new Crypto("Namecoin", "namecoin.png");
-//    var novacoin = new Crypto("Novacoin", "novacoin.png");
-//    var nxt = new Crypto("Nxt", "nxt.jpg");
-//    var peercoin = new Crypto("Peercoin", "peercoin.png");
-
-//    var cryptoArray = [];  //local array of all defined cryptos
-//    cryptoArray.push(
-//        bitcoin,
-//        digitalcoin,
-//        dogecoin,
-//        feathercoin,
-//        litecoin,
-//        megacoin,
-//        mooncoin,
-//        namecoin,
-//        novacoin,
-//        nxt,
-//        peercoin);
-
 
     //cryptoArray is created solely for the purpose of subsequently building cryptoObject.
     //cryptoObject is used throughout the app to access the Crypto objects:
 
     var cryptoArray = [  //local array of all defined cryptos
-    new Crypto("Bitcoin", "bitcoin.png"),
-    new Crypto("Digitalcoin", "digitalcoin.png"),
-    new Crypto("Dogecoin", "dogecoin.png"),
-    new Crypto("Feathercoin", "feathercoin.png"),
-    new Crypto("Litecoin", "litecoin.jpg"),
-    new Crypto("Megacoin", "megacoin.png"),
-    new Crypto("Mooncoin", "mooncoin.png"),
-    new Crypto("Namecoin", "namecoin.png"),
-    new Crypto("Novacoin", "novacoin.png"),
-    new Crypto("Nxt", "nxt.jpg"),
-    new Crypto("Peercoin", "peercoin.png")
+    new Crypto("Bitcoin", "bitcoin.png", 0, true),
+    new Crypto("Digitalcoin", "digitalcoin.png", 0, true),
+    new Crypto("Dogecoin", "dogecoin.png", 0, true),
+    new Crypto("Feathercoin", "feathercoin.png", 0, true),
+    new Crypto("Litecoin", "litecoin.jpg", 0, true),
+    new Crypto("Megacoin", "megacoin.png", 0, true),
+    new Crypto("Mooncoin", "mooncoin.png", 0, true),
+    new Crypto("Namecoin", "namecoin.png", 0, true),
+    new Crypto("Novacoin", "novacoin.png", 0, true),
+    new Crypto("Nxt", "nxt.jpg", 0, true),
+    new Crypto("Peercoin", "peercoin.png", 0, true)
     ];
 
     var cryptoObject = {};  //local object containing all crypto objects by title key
     for (var i = 0; i < cryptoArray.length; i++) {
         cryptoObject[cryptoArray[i].title.toLowerCase()] = cryptoArray[i];
     }
+    //console.log(cryptoObject);
 
 
 
-    var portfolio = new Portfolio(cryptoObject, "#portfolio-template");
+    //var globalPortfolio = new GlobalPortfolio(cryptoObject, "#portfolio-template");
 
-    var userSettings = new UserSettings("#settings-template");
-        //console.log(userSettings);
+    var userPortfolio = new UserPortfolio(cryptoObject, "#settings-template");
+    userPortfolio.removeCrypto("novacoin");
+        //console.log(userPortfolio);
 
 
 //////////////////////////////  MAIN  ///////////////////////////////////
 
-    $("#settings-modal-body").append(userSettings.createJqueryElement());
-    $("#portfolio-container").append(portfolio.createJqueryElement());
+    var renderPage = function () {
+    $("#settings-modal-body").empty().append(userPortfolio.createJqueryElement());
+//    $("#portfolio-container").append(globalPortfolio.createJqueryElement());
+    $("#portfolio-container").empty().append(userPortfolio.createJqueryElement("#portfolio-template"));
 
+    }
 
+    renderPage();
 //////////////////////////////  END MAIN  ///////////////////////////////////
 });
 
