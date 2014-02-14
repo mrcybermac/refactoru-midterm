@@ -37,13 +37,13 @@ $(document).ready(function () {
 //////////////////////////////  OBJECTS  ///////////////////////////////////
 
     var HandlebarsCreatable = function (scriptTagID) {
-        if (scriptTagID){
-        this.scriptTagID = scriptTagID;
+        if (scriptTagID) {
+            this.scriptTagID = scriptTagID;
         }
     };
     HandlebarsCreatable.prototype.createJqueryElement = function (scriptTagID) {
         //console.log("hello",scriptTagID,arguments);
-        var source = $(scriptTagID?scriptTagID:this.scriptTagID).html();  // make this object property?
+        var source = $(scriptTagID ? scriptTagID : this.scriptTagID).html();  // make this object property?
         var template = Handlebars.compile(source);
         return $(template(this));
     };
@@ -63,6 +63,7 @@ $(document).ready(function () {
         this.imageName = imageName;
         this.quantity = quantity;
         this.inPortfolio = inPortfolio;
+
     };
     Crypto.prototype = new HandlebarsCreatable();
     Crypto.prototype.getPriceData = function () {
@@ -70,6 +71,14 @@ $(document).ready(function () {
     };
     Crypto.prototype.getCurrentPrice = function () {
         return _.last(priceData[this.title.toLowerCase()]);
+    };
+    Crypto.prototype.getCurrentWorth = function () {
+        var currentWorth = this.quantity * _.last(priceData[this.title.toLowerCase()]);
+        return currentWorth;
+    };
+    Crypto.prototype.getCurrentWorthFormatted = function () {
+        var currentWorth = this.quantity * _.last(priceData[this.title.toLowerCase()]);
+        return currentWorth.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
     };
     Crypto.prototype.createSparkline = function () {
         //see http://omnipotent.net/jquery.sparkline/#s-faq
@@ -96,13 +105,29 @@ $(document).ready(function () {
     };
     UserPortfolio.prototype = new HandlebarsCreatable();
     UserPortfolio.prototype.addCrypto = function (crypto) {
-            this.cryptos[crypto.toLowerCase()].inPortfolio = true;
+        this.cryptos[crypto.toLowerCase()].inPortfolio = true;
     };
     UserPortfolio.prototype.removeCrypto = function (crypto) {
-            this.cryptos[crypto.toLowerCase()].inPortfolio = false;
+        this.cryptos[crypto.toLowerCase()].inPortfolio = false;
     };
     UserPortfolio.prototype.updateQuantity = function (crypto, quantity) {
         this.cryptos[crypto.toLowerCase()].quantity = quantity;
+    };
+    UserPortfolio.prototype.getCurrentWorth = function () {
+        var currentWorth = 0;
+        for (var crypto in this.cryptos){
+            if (this.cryptos[crypto].inPortfolio === true){
+            currentWorth += Number(this.cryptos[crypto].getCurrentWorth());
+            }
+        }
+        return currentWorth;
+    };
+    UserPortfolio.prototype.getCurrentWorthFormatted = function () {
+        var currentWorth = 0;
+        for (var crypto in this.cryptos){
+            currentWorth += Number(this.cryptos[crypto].getCurrentWorth());
+        }
+        return currentWorth.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
     };
 
 ////////////////
@@ -116,29 +141,28 @@ $(document).ready(function () {
 //////////////////////////////  EVENT HANDLERS  ///////////////////////////////////
 
 
-$("#settings-modal").find(".submit").on("click", function() {
+    $("#settings-modal").find(".submit").on("click", function () {
 
-    $("#settings-modal").find("input:checkbox").each(function(){
+        $("#settings-modal").find("input:checkbox").each(function () {
 
-        for (var crypto in userPortfolio.cryptos) {
-            if ($(this).is(":checked")){
-              userPortfolio.cryptos[$(this).closest(".crypto").attr("data-id")].inPortfolio = true;
-            } else {
-              userPortfolio.cryptos[$(this).closest(".crypto").attr("data-id")].inPortfolio = false;
+            for (var crypto in userPortfolio.cryptos) {
+                if ($(this).is(":checked")) {
+                    userPortfolio.cryptos[$(this).closest(".crypto").attr("data-id")].inPortfolio = true;
+                } else {
+                    userPortfolio.cryptos[$(this).closest(".crypto").attr("data-id")].inPortfolio = false;
+                }
             }
-        }
-    });
+        });
 
-    $("#settings-modal").find("input:text").each(function(){
-        for (var crypto in userPortfolio.cryptos) {
+        $("#settings-modal").find("input:text").each(function () {
+            for (var crypto in userPortfolio.cryptos) {
                 userPortfolio.cryptos[$(this).closest(".crypto").attr("data-id")].quantity = $(this).val();
-        }
+            }
+        });
+
+        //reload modal
+        renderPage();
     });
-
-    //reload modal
-    renderPage();
-});
-
 
 
 //////////////////////////////  INSTANTIATE OBJECTS  ///////////////////////////////////
@@ -147,41 +171,50 @@ $("#settings-modal").find(".submit").on("click", function() {
     //cryptoObject is used throughout the app to access the Crypto objects:
 
     var cryptoArray = [  //local array of all defined cryptos
-    new Crypto("Bitcoin", "bitcoin.png", 0, true),
-    new Crypto("Digitalcoin", "digitalcoin.png", 0, true),
-    new Crypto("Dogecoin", "dogecoin.png", 0, true),
-    new Crypto("Feathercoin", "feathercoin.png", 0, true),
-    new Crypto("Litecoin", "litecoin.jpg", 0, true),
-    new Crypto("Megacoin", "megacoin.png", 0, true),
-    new Crypto("Mooncoin", "mooncoin.png", 0, true),
-    new Crypto("Namecoin", "namecoin.png", 0, true),
-    new Crypto("Novacoin", "novacoin.png", 0, true),
-    new Crypto("Nxt", "nxt.jpg", 0, true),
-    new Crypto("Peercoin", "peercoin.png", 0, true)
+        new Crypto("Bitcoin", "bitcoin.png", 0, true),
+        new Crypto("Digitalcoin", "digitalcoin.png", 0, true),
+        new Crypto("Dogecoin", "dogecoin.png", 0, true),
+        new Crypto("Feathercoin", "feathercoin.png", 0, true),
+        new Crypto("Litecoin", "litecoin.jpg", 0, true),
+        new Crypto("Megacoin", "megacoin.png", 0, true),
+        new Crypto("Mooncoin", "mooncoin.png", 0, true),
+        new Crypto("Namecoin", "namecoin.png", 0, true),
+        new Crypto("Novacoin", "novacoin.png", 0, true),
+        new Crypto("Nxt", "nxt.jpg", 0, true),
+        new Crypto("Peercoin", "peercoin.png", 0, true)
     ];
 
     var cryptoObject = {};  //local object containing all crypto objects by title key
     for (var i = 0; i < cryptoArray.length; i++) {
         cryptoObject[cryptoArray[i].title.toLowerCase()] = cryptoArray[i];
     }
-    //console.log(cryptoObject);
 
+   // var serializer = new GSerializer();
 
-
+//console.log(localStorage.hasOwnProperty("userPortfolio"));
     //var globalPortfolio = new GlobalPortfolio(cryptoObject, "#portfolio-template");
+ //   if (localStorage.hasOwnProperty("userPortfolio")){
+//        var userPortfolio = JSON.parse(localStorage["userPortfolio"]);
+ //       var userPortfolio = serializer.deserialize(localStorage.getItem("userPortfolio"));
+//    } else {
+        var userPortfolio = new UserPortfolio(cryptoObject, "#settings-template");
+ //   }
+    //userPortfolio.removeCrypto("novacoin");
+    //console.log(userPortfolio);
 
-    var userPortfolio = new UserPortfolio(cryptoObject, "#settings-template");
-    userPortfolio.removeCrypto("novacoin");
-        //console.log(userPortfolio);
-
+ //   console.log(userPortfolio);
 
 //////////////////////////////  MAIN  ///////////////////////////////////
 
     var renderPage = function () {
-    $("#settings-modal-body").empty().append(userPortfolio.createJqueryElement());
-//    $("#portfolio-container").append(globalPortfolio.createJqueryElement());
-    $("#portfolio-container").empty().append(userPortfolio.createJqueryElement("#portfolio-template"));
+        $("#settings-modal-body").empty().append(userPortfolio.createJqueryElement());
+        $("#portfolio-container").empty().append(userPortfolio.createJqueryElement("#portfolio-template"));
+        $(".jumbotron .panel span").text("$" + userPortfolio.getCurrentWorthFormatted());
 
+//        localStorage["userPortfolio"] = JSON.stringify(userPortfolio);
+
+ //       var serializedXML = serializer.serialize(userPortfolio, "userPortfolio");
+ //       localStorage.setItem("userPortfolio", serializedXML);
     }
 
     renderPage();
