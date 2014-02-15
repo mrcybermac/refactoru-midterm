@@ -19,17 +19,19 @@ Handlebars.registerHelper('toLowerCase', function (str) {
     return str.toLowerCase();
 });
 
+//a helper with specific createTextElement function  (not used anymore)
+//Handlebars.registerHelper('createTextElement', function (str, obj) {
+//    var source = $(str).html();
+//    var template = Handlebars.compile(source);
+//    return $(template(obj))[0].outerHTML;
+//});
+
+// a more generalized version of helper above, now just pass in name of function
 Handlebars.registerHelper('apply', function (fnc, obj) {
     var argArray = Array.prototype.slice.call(arguments);
     argArray.shift();
     argArray.shift();
     return fnc.apply(obj, argArray);
-});
-
-Handlebars.registerHelper('createTextElement', function (str, obj) {
-    var source = $(str).html();
-    var template = Handlebars.compile(source);
-    return $(template(obj))[0].outerHTML;
 });
 
 //////////////////////////////  OBJECTS  ///////////////////////////////////
@@ -127,39 +129,11 @@ UserPortfolio.prototype.getCurrentWorthFormatted = function () {
     return currentWorth.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,');
 };
 
-
-//////////////////////////////  EVENT HANDLERS  ///////////////////////////////////
-
-
-$("#settings-modal").find(".submit").on("click", function () {
-
-    $("#settings-modal").find("input:checkbox").each(function () {
-
-        for (var crypto in userPortfolio.cryptos) {
-            if ($(this).is(":checked")) {
-                userPortfolio.cryptos[$(this).closest(".crypto").attr("data-id")].inPortfolio = true;
-            } else {
-                userPortfolio.cryptos[$(this).closest(".crypto").attr("data-id")].inPortfolio = false;
-            }
-        }
-    });
-
-    $("#settings-modal").find("input:text").each(function () {
-
-        for (var crypto in userPortfolio.cryptos) {
-            userPortfolio.cryptos[$(this).closest(".crypto").attr("data-id")].quantity = $(this).val();
-        }
-    });
-
-    //reload view
-    renderPage();
-});
-
-
 //////////////////////////////  INSTANTIATE OBJECTS  ///////////////////////////////////
 
 //cryptoArray is created solely for the purpose of subsequently building cryptoObject.
-//cryptoObject is used throughout the app to access the Crypto objects:
+//cryptoObject is passed to userPortfolio and userPortfolio.cryptos is used...
+// throughout the app to access the Crypto objects:
 
 var cryptoArray = [  //local array of all defined cryptos
     new Crypto("Bitcoin", "bitcoin.png", 0, true),
@@ -196,6 +170,9 @@ var userPortfolio = new UserPortfolio(cryptoObject);
 //   console.log(userPortfolio);
 
 
+
+//////////////////////////////  GLOBAL FUNCTIONS ///////////////////////////////////
+
 var renderPage = function () {
     $("#settings-modal-body").empty().append(userPortfolio.createJqueryElement("#settings-template"));
     $("#portfolio-container").empty().append(userPortfolio.createJqueryElement("#portfolio-template"));
@@ -207,7 +184,35 @@ var renderPage = function () {
     //       localStorage.setItem("userPortfolio", serializedXML);
 }
 
-//////////////////////////////  MAIN  ///////////////////////////////////
+//////////////////////////////  EVENT HANDLERS  ///////////////////////////////////
+
+
+$("#settings-modal").find(".submit").on("click", function () {
+
+    $("#settings-modal").find("input:checkbox").each(function () {
+
+        for (var crypto in userPortfolio.cryptos) {
+            if ($(this).is(":checked")) {
+                userPortfolio.cryptos[$(this).closest(".crypto").attr("data-id")].inPortfolio = true;
+            } else {
+                userPortfolio.cryptos[$(this).closest(".crypto").attr("data-id")].inPortfolio = false;
+            }
+        }
+    });
+
+    $("#settings-modal").find("input:text").each(function () {
+
+        for (var crypto in userPortfolio.cryptos) {
+            userPortfolio.cryptos[$(this).closest(".crypto").attr("data-id")].quantity = $(this).val();
+        }
+    });
+
+    //reload view
+    renderPage();
+});
+
+
+//////////////////////////////  MAIN EVENT HANDLER ///////////////////////////////////
 $(document).ready(function () {
 
     renderPage();

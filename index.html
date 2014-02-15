@@ -125,10 +125,7 @@
             {{#each cryptos}}
             <tr>
                 <td>
-                    {{!--<!--{{{createTextElement "#settings-crypto-template" this}}}-->--}}
-                    {{!--<!--{{{apply this.cryptoObj.createTextElement this.cryptoObj "#settings-crypto-template"}}}-->
-                    --}}
-                    {{{apply this.createTextElement this "#settings-crypto-template"}}}
+                    {{{apply createTextElement this "#settings-crypto-template"}}}
                 </td>
             </tr>
             {{/each}}
@@ -190,9 +187,7 @@
             {{#if inPortfolio}}
             <tr>
                 <td>
-
-                    {{{apply this.createTextElement this "#portfolio-crypto-template"}}}
-
+                    {{{apply createTextElement this "#portfolio-crypto-template"}}}
                 </td>
             </tr>
             {{/if}}
