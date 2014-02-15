@@ -21,7 +21,7 @@ Handlebars.registerHelper('toLowerCase', function (str) {
 });
 
 //a helper with specific createTextElement function  (not used anymore)
-//Handlebars.registerHelper('createTextElement', function (str, obj) {
+//Handlebars.registerHelper('createHandlebarsTextElement', function (str, obj) {
 //    var source = $(str).html();
 //    var template = Handlebars.compile(source);
 //    return $(template(obj))[0].outerHTML;
@@ -37,7 +37,7 @@ Handlebars.registerHelper('apply', function (fnc, obj) {
 
 //////////////////////////////  OBJECTS  ///////////////////////////////////
 
-Object.defineProperty(Object.prototype, 'createJqueryElement', {
+Object.defineProperty(Object.prototype, 'createHandlebarsJqueryElement', {
     value: function (scriptTagID) {
         var source = $(scriptTagID).html();
         var template = Handlebars.compile(source);
@@ -45,15 +45,15 @@ Object.defineProperty(Object.prototype, 'createJqueryElement', {
     },
     enumerable: false
 });
-Object.defineProperty(Object.prototype, 'createDOMElement', {
+Object.defineProperty(Object.prototype, 'createHandlebarsDOMElement', {
     value: function (scriptTagID) {
-        return this.createJqueryElement(scriptTagID)[0];
+        return this.createHandlebarsJqueryElement(scriptTagID)[0];
     },
     enumerable: false
 });
-Object.defineProperty(Object.prototype, 'createTextElement', {
+Object.defineProperty(Object.prototype, 'createHandlebarsTextElement', {
     value: function (scriptTagID) {
-        return this.createJqueryElement(scriptTagID)[0].outerHTML;
+        return this.createHandlebarsJqueryElement(scriptTagID)[0].outerHTML;
     },
     enumerable: false
 });
@@ -169,8 +169,8 @@ var userPortfolio = new UserPortfolio(cryptoObject);
 //////////////////////////////  GLOBAL FUNCTIONS ///////////////////////////////////
 
 var renderPage = function () {
-    $("#settings-modal-body").empty().append(userPortfolio.createJqueryElement("#settings-template"));
-    $("#portfolio-container").empty().append(userPortfolio.createJqueryElement("#portfolio-template"));
+    $("#settings-modal-body").empty().append(userPortfolio.createHandlebarsJqueryElement("#settings-template"));
+    $("#portfolio-container").empty().append(userPortfolio.createHandlebarsJqueryElement("#portfolio-template"));
     $(".jumbotron .panel span").text("$" + userPortfolio.getCurrentWorthFormatted());
 
 //        localStorage["userPortfolio"] = JSON.stringify(userPortfolio);

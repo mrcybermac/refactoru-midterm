@@ -125,7 +125,7 @@
             {{#each cryptos}}
             <tr>
                 <td>
-                    {{{apply createTextElement this "#settings-crypto-template"}}}
+                    {{{apply createHandlebarsTextElement this "#settings-crypto-template"}}}
                 </td>
             </tr>
             {{/each}}
@@ -187,7 +187,7 @@
             {{#if inPortfolio}}
             <tr>
                 <td>
-                    {{{apply createTextElement this "#portfolio-crypto-template"}}}
+                    {{{apply createHandlebarsTextElement this "#portfolio-crypto-template"}}}
                 </td>
             </tr>
             {{/if}}
