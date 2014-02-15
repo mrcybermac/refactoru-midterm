@@ -1,4 +1,5 @@
 //////////////////////////////  DATA  ///////////////////////////////////
+
 var priceData = {
     bitcoin: [700, 737, 738, 767, 783, 712, 711, 700, 738, 698, 678, 689, 675, 656, 660, 680, 685, 675, 665, 657, 675, 660, 675, 670, 660, 665, 655, 650],
     digitalcoin: [1, 4, 4, 7, 5, 9, 10, 8, 4, 5, 7, 5, 9, 10, 7, 4, 6, 7, 5, 9, 10, 6, 4, 4, 7, 5, 9, 15],
@@ -35,7 +36,6 @@ Handlebars.registerHelper('apply', function (fnc, obj) {
 });
 
 //////////////////////////////  OBJECTS  ///////////////////////////////////
-
 
 Object.defineProperty(Object.prototype, 'createJqueryElement', {
     value: function (scriptTagID) {
@@ -98,7 +98,6 @@ Crypto.prototype.createSparkline = function () {
 };
 
 ////////////////
-
 
 var UserPortfolio = function (cryptos, scriptTagID) {
     this.cryptos = cryptos; //object of Crypto objects
@@ -167,10 +166,6 @@ var userPortfolio = new UserPortfolio(cryptoObject);
 //userPortfolio.removeCrypto("novacoin");
 //console.log(userPortfolio);
 
-//   console.log(userPortfolio);
-
-
-
 //////////////////////////////  GLOBAL FUNCTIONS ///////////////////////////////////
 
 var renderPage = function () {
@@ -182,10 +177,9 @@ var renderPage = function () {
 
     //       var serializedXML = serializer.serialize(userPortfolio, "userPortfolio");
     //       localStorage.setItem("userPortfolio", serializedXML);
-}
+};
 
 //////////////////////////////  EVENT HANDLERS  ///////////////////////////////////
-
 
 $("#settings-modal").find(".submit").on("click", function () {
 
@@ -211,20 +205,18 @@ $("#settings-modal").find(".submit").on("click", function () {
     renderPage();
 });
 
-
-//////////////////////////////  MAIN EVENT HANDLER ///////////////////////////////////
 $(document).ready(function () {
-
+    //////////////////////////////  MAIN  ///////////////////////////////////
     renderPage();
-
+    //////////////////////////////  END MAIN  //////////////////////////////
 });
-//////////////////////////////  END MAIN  //////////////////////////////
+
 
 
 //TODO
 //About modal
-//settings rendered and saved
-//total value calculated and for each
 //html storage of settings... set userSettings=html storage object if exist
 //sort by alpha, price, portfolio value
 //animate stuff
+//add all known cryptos with price data
+//find a way to get price data client side
